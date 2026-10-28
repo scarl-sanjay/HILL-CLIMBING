@@ -1,6 +1,6 @@
 <h1>ExpNo 5 : Implement Simple Hill Climbing Algorithm</h1> 
-<h3>Name:             </h3>
-<h3>Register Number:             </h3>
+<h3>Name: Sanjay S            </h3>
+<h3>Register Number: 212223040184           </h3>
 <H3>Aim:</H3>
 <p>Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration </p>
 <h2> Theory: </h2>
@@ -59,3 +59,79 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+
+
+
+
+<h1>PROGRAM:</h1>
+
+
+
+
+```
+import random
+import string
+
+def generate_random_solution(answer):
+    l = len(answer)
+    # Exclude raw whitespaces like \t, \n, \r for clean terminal output
+    valid_chars = string.ascii_letters + string.digits + string.punctuation + ' '
+    return [random.choice(valid_chars) for _ in range(l)]
+
+def evaluate(solution, answer):
+    target = list(answer)
+    diff = 0
+    for i in range(len(target)):
+        s = solution[i]
+        t = target[i]
+        diff += abs(ord(s) - ord(t))
+    return diff
+
+def mutate_solution(solution):
+    # Create an explicit copy to prevent modifying the original 'best' reference
+    mutated = list(solution)
+    ind = random.randint(0, len(mutated) - 1)
+    valid_chars = string.ascii_letters + string.digits + string.punctuation + ' '
+    mutated[ind] = random.choice(valid_chars)
+    return mutated
+
+def SimpleHillClimbing():
+    answer = input("Enter the String: ")
+    best = generate_random_solution(answer)
+    best_score = evaluate(best, answer)
+    
+    iterations = 0
+    while True:
+        iterations += 1
+        
+        # Throttled printing to run much faster, while still showing final output
+        if iterations % 100 == 0 or best_score == 0:
+            print(f"Iteration {iterations} | Score: {best_score} | Solution: {''.join(best)}")
+            
+        if best_score == 0:
+            print(f"\nTarget String Found in {iterations} iterations!")
+            break
+            
+        new_solution = mutate_solution(best)
+        score = evaluate(new_solution, answer)
+        
+        if score < best_score:
+            best = new_solution
+            best_score = score
+
+if __name__ == "__main__":
+    SimpleHillClimbing()
+```
+
+
+
+<h1> OUTPUT </h1>
+```
+<img width="825" height="387" alt="Screenshot 2026-10-26 092217" src="https://github.com/user-attachments/assets/c6fd66f5-b776-421f-9b64-51563c4fc713" />
+```
+
+
+<h1> RESULT </h1>
+```
+The code to Implement Simple Hill Climbing Algorithm and Generate a String by Mutating a Single Character at each iteration is successfully executed
+```
